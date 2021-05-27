@@ -33,7 +33,7 @@ def city():
    # Error Handling 
     try:
         # Fetching API
-        api = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=fb2afc17357e7d8adb50eb7b7e9348ed"
+        api = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid={API KEY HERE - HIDDEN FOR SECURITY}"
         json_data = requests.get(api).json()
         # storing specific data of fetched Api inside specific variables 
         condition = json_data['weather'][0]['main']
