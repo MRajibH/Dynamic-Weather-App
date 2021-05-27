@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Weather App</title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0-rc.2/jquery-ui.js" integrity="sha256-6HSLgn6Ao3PKc5ci8rwZfb//5QUu3ge2/Sw9KfLuvr8=" crossorigin="anonymous"></script>
+  
+
+  
+<style>
+  /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+      .row.content {height: 1500px}
+    
+    /* Set gray background color and 100% height */
+      .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+     }
+    
+      /* Set black background color, white text and some padding */
+      footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+      }
+    
+      /* On small screens, set height to 'auto' for sidenav and grid */
+      @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height: auto;} 
+      }
+      html .ui-autocomplete { width:1px; }
+      ul.ui-autocomplete {
+        list-style: none;
+        margin: 20px;
+        padding: 15px;
+        background-color: white;
+        display:block;
+      }
+</style>
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav">
+      <br>
+      <button type="button" class="btn btn-primary">আবহাওয়া আপডেট</button>
+      <button type="button" class="btn btn-success">Weather Update</button>
+      <br><br>
+      <h5> <strong>[ Enter a name of a City/Country and click Enter or Search Icon below to see current Weather information of that area ]</strong></h5>
+      <br>
+      <form method="POST" action="/city">
+      <div class="input-group">
+          <input id ='key' name ='key'type="text" class="form-control" placeholder="Enter city/country name here">
+          <br>
+         <span class="input-group-btn">
+         <button class="btn btn-default" type="submit">
+         <span class="glyphicon glyphicon-search"></span>
+        </button>
+        </form>
+        <br>
+        </span>
+      </div>
+    </div>
+    
+    <div class="col-sm-9">
+      <div class="text-center">
+       <h2><strong>الْحَمْدُ لِلَّهِ رَبِّ الْعٰلَمِينَ</strong></h2>
+      <hr>
+      <h2><span class="label label-success">Current Weather of {{city}}</span></h2><br>
+      
+      <h5><span class="glyphicon glyphicon-time"></span> Built by <a href="http://github.com/MRajibH">Rajib</a> on May 24, 2021.</h5>
+      <p>  <img  id =  'image'src="{{ url_for('static', filename = 'photos/sunny.png') }}" width="150" height="150">  </p>
+       <button type="button" class="btn btn-light mr-1"> <h5> Sky: <strong>{{condition}}</strong> </h5></button><br><br>
+      <button type="button" class="btn btn-light mr-1"><h5>Temperature: <strong> {{temprature}}°C </strong></h5></button>
+      <button type="button" class="btn btn-light mr-1"><h5>Minimum Temperature:<strong> {{minimumTemprature}}°C </strong></h5></button>
+      <button type="button" class="btn btn-light mr-1"><h5>Maximum Temperature:<strong>  {{maximumTemprature}}°C</strong></button></h5><br><br>
+      <button type="button" class="btn btn-light mr-1"><h5>Pressure:<strong>  {{pressure}}↑mb</strong></h5></button>
+      <button type="button" class="btn btn-light mr-1"><h5>Humidity:<strong>  {{humidity}} %</strong></h5></button>
+      <button type="button" class="btn btn-light mr-1"><h5>Wind Speed:<strong>  {{windSpeed}} km/h</strong></button></h5><br><br>
+      <button type="button" class="btn btn-light mr-1"><h5>Sunrise: <strong> {{sunrise}} AM [GMT +6]</strong></button></h5><br><br>
+      <button type="button" class="btn btn-light mr-1"><h5>Sunset: <strong> {{sunset}} PM [GMT +6]</strong></button></h5><br><br>
+      <hr>
+      <p style="text-align: center"> Copyright &copy; <script>document.write(new Date().getFullYear())</script> <a href="https://linkedin.com/in/mrajibh">Md. Rajib Hawlader</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<script>
+  
+  // Making an aniamtion by toggling sun image 
+      for (var i = 0; i <100; i++)
+      {
+        $("#image").toggle(10000);
+        
+      }
+      
+
+   
+    //Intializing an empty array to store cities and countries name.
+    let cityList =[];
+    //Fetching country/ city list through ajax
+    $.ajax({
+        url: "https://restcountries.eu/rest/v2/all",
+        type: "GET",
+        dataType:"json",
+        success: function (data){
+            getCountries(data);
+        },
+        error: function(){
+            console.log("Error");
+        }
+
+    });
+    //Fuction to Pushing data inside a cityList array
+    // Input parameter: country -> Json data
+    // Return parameter: void
+    function getCountries(country){
+     
+        for(let a = 0; a < country.length; a++){
+          cityList.push(country[a].capital); 
+          cityList.push(country[a].name);
+          }
+  }
+   
+
+  // Selecting input element and making a autocomplete suggestion like google 
+    $( "#key" ).autocomplete({
+      source: cityList,
+      minLength: 1,
+      autoFocus: true,
+
+       
+    });
+    
+</script>
+</body>
+</html>
