@@ -1,5 +1,6 @@
 # Dynamic-Weather-App
 This is a dynamic live weather app. Where anyone can know the weather update of any cities of the word. The data  of this app changes dynamically based on inputted city. 
+<hr> Live Link : <a href = "https://weatherappbyrajib.herokuapp.com/"> Weather App <a/>
 <br>
 <h1>Desktop View : </h1>
 <img src = "static/photos/desktop.png">
