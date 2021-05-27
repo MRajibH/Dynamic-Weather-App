@@ -1,5 +1,6 @@
 '''
-| app.py is a Dynamic weather application where users c respective personal information.
+| This is a dynamic live weather app. Where anyone can know the weather update of any cities of the word. The data of this app changes dynamically
+| based on inputted city.
 |
 | Project Name : Dynamic Weather App
 | Developed by : BroTecs Technologies Limited
